@@ -788,6 +788,19 @@
         "runtime": {
           "bin/placeholder/SolarCoffe.Data.dll": {}
         }
+      },
+      "SolarCoffe.Service/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "SolarCoffe.Data": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/SolarCoffe.Service.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SolarCoffe.Service.dll": {}
+        }
       }
     }
   },
@@ -2041,6 +2054,11 @@
       "type": "project",
       "path": "../SolarCoffe.Data/SolarCoffe.Data.csproj",
       "msbuildProject": "../SolarCoffe.Data/SolarCoffe.Data.csproj"
+    },
+    "SolarCoffe.Service/1.0.0": {
+      "type": "project",
+      "path": "../SolarCoffe.Service/SolarCoffe.Service.csproj",
+      "msbuildProject": "../SolarCoffe.Service/SolarCoffe.Service.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -2048,7 +2066,8 @@
       "Microsoft.EntityFrameworkCore >= 3.1.1",
       "Microsoft.EntityFrameworkCore.Design >= 3.1.1",
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.1",
-      "SolarCoffe.Data >= 1.0.0"
+      "SolarCoffe.Data >= 1.0.0",
+      "SolarCoffe.Service >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -2080,6 +2099,9 @@
           "projectReferences": {
             "C:\\Users\\Dracarys\\Documents\\Workspace\\Personal Project\\SolarCoffe\\SolarCoffe\\SolarCoffe.Data\\SolarCoffe.Data.csproj": {
               "projectPath": "C:\\Users\\Dracarys\\Documents\\Workspace\\Personal Project\\SolarCoffe\\SolarCoffe\\SolarCoffe.Data\\SolarCoffe.Data.csproj"
+            },
+            "C:\\Users\\Dracarys\\Documents\\Workspace\\Personal Project\\SolarCoffe\\SolarCoffe\\SolarCoffe.Service\\SolarCoffe.Service.csproj": {
+              "projectPath": "C:\\Users\\Dracarys\\Documents\\Workspace\\Personal Project\\SolarCoffe\\SolarCoffe\\SolarCoffe.Service\\SolarCoffe.Service.csproj"
             }
           }
         }
