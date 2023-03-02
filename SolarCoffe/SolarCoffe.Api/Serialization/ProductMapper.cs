@@ -1,5 +1,9 @@
 ﻿using SolarCoffe.Api.ViewModels;
 using SolarCoffe.Data.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SolarCoffe.Api.Serialization
 {
