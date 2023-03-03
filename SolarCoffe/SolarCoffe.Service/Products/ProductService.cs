@@ -101,17 +101,60 @@ namespace SolarCoffe.Service.Products
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Product GetProductById(int id)
+        public ServiceResponse<Product> GetProductById(int id)
         {
-            return _context.Products.Find(id);
+            try
+            {
+                var result = _context.Products.Find(id);
+                return new ServiceResponse<Product>
+                {
+                    Data = result,
+                    Time = DateTime.UtcNow,
+                    IsSuccess = true,
+                    Message = "Successfully retrieved data"
+                };
+            }
+            catch (Exception e)
+            {
+
+                return new ServiceResponse<Product>
+                {
+                    Data = null,
+                    IsSuccess = false,
+                    Message = e.StackTrace,
+                    Time = DateTime.UtcNow
+                };
+            }
         }
         /// <summary>
         /// Retrieves all products
         /// </summary>
         /// <returns></returns>
-        public IReadOnlyList<Product> GetProducts()
+        public ServiceResponse<IReadOnlyList<Product>> GetProducts()
         {
-            return _context.Products.ToList().AsReadOnly();
+
+            try
+            {
+                var result = _context.Products.ToList().AsReadOnly();
+                return new ServiceResponse<IReadOnlyList<Product>>
+                {
+                    Data = result,
+                    IsSuccess = true,
+                    Message = "Successfully retrieved data"
+                };
+
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse<IReadOnlyList<Product>>
+                {
+                    Data = null,
+                    IsSuccess = false,
+                    Message = e.StackTrace
+                };
+
+
+            }
         }
     }
 }

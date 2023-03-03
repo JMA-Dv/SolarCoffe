@@ -7,8 +7,8 @@ namespace SolarCoffe.Service.Products
 {
     public interface IProductService
     {
-        IReadOnlyList<Product> GetProducts();
-        Product GetProductById(int id);
+        ServiceResponse<IReadOnlyList<Product>> GetProducts();
+        ServiceResponse<Product> GetProductById(int id);
         ServiceResponse<Product> CreateProduct(Product product);
         ServiceResponse<Product> ArchiveProduct(int id);
 

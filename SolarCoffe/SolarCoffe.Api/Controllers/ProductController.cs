@@ -24,8 +24,33 @@ namespace SolarCoffe.Api.Controllers
         {
             _Logger.LogInformation("Getting all info");
             var response = _product.GetProducts();
-            var products = response.Select(ProductMapper.SerializeProductModel);
+            var products = response.Data.Select(ProductMapper.SerializeProductModel);
             return Ok(products);
         }
+
+
+        [HttpGet("{id}")]
+        public ActionResult GetById(int id)
+        {
+            _Logger.LogInformation($"Getting product with id {id} ");
+
+            var respose = _product.GetProductById(id);
+            var product = ProductMapper.SerializeProductModel(respose.Data);
+
+            return Ok(product);
+        }
+
+
+        [HttpDelete("{id}")]
+        public ActionResult DeleteProduct(int id)
+        {
+            _Logger.LogInformation($"Getting product with id {id} ");
+
+            var response = _product.ArchiveProduct(id);
+
+            return Ok();
+        }
+
+        
     }
 }
