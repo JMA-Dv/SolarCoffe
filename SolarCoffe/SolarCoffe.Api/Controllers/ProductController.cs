@@ -47,8 +47,9 @@ namespace SolarCoffe.Api.Controllers
             _Logger.LogInformation($"Getting product with id {id} ");
 
             var response = _product.ArchiveProduct(id);
+             ProductMapper.SerializeProductModel(response.Data);
 
-            return Ok();
+            return Ok(response);
         }
 
         

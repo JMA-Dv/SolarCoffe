@@ -8,6 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SolarCoffe.Data;
+using SolarCoffe.Service.Customers;
+using SolarCoffe.Service.Inventoies;
+using SolarCoffe.Service.Orders;
 using SolarCoffe.Service.Products;
 using System;
 using System.Collections.Generic;
@@ -35,6 +38,9 @@ namespace SolarCoffe.Api
                 ops.UseNpgsql(Configuration.GetConnectionString("Coffe.dev"));
             });
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<ICustomerService, CustomerService>();
+            services.AddTransient<IInventoryService,InventoryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
