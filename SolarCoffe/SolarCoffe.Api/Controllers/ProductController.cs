@@ -47,11 +47,19 @@ namespace SolarCoffe.Api.Controllers
             _Logger.LogInformation($"Getting product with id {id} ");
 
             var response = _product.ArchiveProduct(id);
-             ProductMapper.SerializeProductModel(response.Data);
+            ProductMapper.SerializeProductModel(response.Data);
 
             return Ok(response);
         }
 
+
+        [HttpPatch("{id}")]
+        public ActionResult ArchiveProduct(int id)
+        {
+            _Logger.LogInformation("Archiving prod");
+            var response= _product.ArchiveProduct(id);
+            return Ok(response);
+        }
         
     }
 }
