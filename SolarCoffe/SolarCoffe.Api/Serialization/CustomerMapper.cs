@@ -21,7 +21,7 @@ namespace SolarCoffe.Api.Serialization
 
             return new CustomerModel
             {
-                CustomerAddress = CustomerAddressMapper.SerializeCustomerAddress(customer.CustomerAddress),
+                CustomerAddress = CustomerAddressMapper.MapCustomerAddress(customer.CustomerAddress),
                 Id = customer.Id,
                 DateUpdaetd = customer.DateUpdaetd,
                 DateCreated = customer.DateCreated,
@@ -39,12 +39,12 @@ namespace SolarCoffe.Api.Serialization
         {
             return new Customer
             {
-                CustomerAddress = CustomerAddressMapper.SerializeCustomerAddress(customer.CustomerAddress),
-                Id = customer.Id,
+                CustomerAddress = CustomerAddressMapper.MapCustomerAddress(customer.CustomerAddress),
+                
                 DateUpdaetd = customer.DateUpdaetd,
                 DateCreated = customer.DateCreated,
-                FirstName = customer.FirstName,
-                LastName = customer.LastName
+                 FirstName = customer.FirstName,
+                LastName = customer.LastName 
             };
         }
     }

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using SolarCoffe.Api.Serialization;
 using SolarCoffe.Api.ViewModels;
 using SolarCoffe.Service.Customers;
+using SolarCoffe.Service.Orders;
 using SolarCoffe.Service.Products;
 using System;
 using System.Collections.Generic;
@@ -20,12 +21,14 @@ namespace SolarCoffe.Api.Controllers
 
         private readonly IProductService _productService;
         private readonly ICustomerService _customerService;
+        private readonly IOrderService _orderService;
 
-        public OrderController(ILogger<OrderController> logger, IProductService productService, ICustomerService customerService)
+        public OrderController(ILogger<OrderController> logger, IProductService productService, ICustomerService customerService, IOrderService orderService)
         {
             _logger = logger;
             _productService = productService;
             _customerService = customerService;
+            _orderService = orderService;
         }
 
         [HttpPost("invoice")]
@@ -34,7 +37,9 @@ namespace SolarCoffe.Api.Controllers
             _logger.LogInformation("Generating invoice");
             var order = OrderMapper.SerializeInvoiceOrder(invoice);
 
-            order.Customer = _customerService.GetById(invoice.CustomerId);
+
+            order.Customer = _customerService.GetById(invoice.CustomerId).Data;
+            _orderService.GenerateOrderInvoice(order);
             return Ok();
         }
     }

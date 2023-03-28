@@ -9,7 +9,7 @@ namespace SolarCoffe.Api.Serialization
 {
     public static class CustomerAddressMapper
     {
-        public static CustomerAddressModel SerializeCustomerAddress(CustomerAddress customerAddress)
+        public static CustomerAddressModel MapCustomerAddress(CustomerAddress customerAddress)
         {
 
             return new CustomerAddressModel
@@ -26,7 +26,7 @@ namespace SolarCoffe.Api.Serialization
             
         }
         
-        public static CustomerAddress SerializeCustomerAddress(CustomerAddressModel customerAddress)
+        public static CustomerAddress MapCustomerAddress(CustomerAddressModel customerAddress)
         {
 
             return new CustomerAddress
