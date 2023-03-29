@@ -9,10 +9,10 @@ namespace SolarCoffe.Api.Serialization
 {
     public static class CustomerAddressMapper
     {
-        public static CustomerAddressModel MapCustomerAddress(CustomerAddress customerAddress)
+        public static CustomerAddressModel? MapCustomerAddress(CustomerAddress customerAddress)
         {
 
-            return new CustomerAddressModel
+            return (customerAddress != null) ?  new CustomerAddressModel
             {
                 Id = customerAddress.Id,
                 AddressLine = customerAddress.AddressLine,
@@ -22,7 +22,7 @@ namespace SolarCoffe.Api.Serialization
                 DateUpdaetd = customerAddress.DateUpdaetd,
                 PostalCode = customerAddress.PostalCode,
                 State = customerAddress.State
-            };
+            }: null;
             
         }
         
