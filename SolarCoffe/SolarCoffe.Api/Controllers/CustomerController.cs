@@ -47,7 +47,9 @@ namespace SolarCoffe.Api.Controllers
                 DateCreated = x.DateCreated,
                 DateUpdaetd = x.DateUpdaetd,
                 FirstName = x.FirstName,
-                LastName = x.LastName
+                LastName = x.LastName,
+                Id = x.Id
+               
             }).OrderByDescending(X=> X.DateCreated).ToList();
 
             return Ok(customerModels);

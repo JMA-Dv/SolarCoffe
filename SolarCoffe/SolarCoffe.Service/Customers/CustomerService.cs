@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using SolarCoffe.Data;
 using SolarCoffe.Data.Models;
 using System;
@@ -11,15 +12,43 @@ namespace SolarCoffe.Service.Customers
     public class CustomerService : ICustomerService
     {
         private readonly SolarCoffeDbContext _context;
+        private readonly ILogger<CustomerService> _logger;
 
-        public CustomerService(SolarCoffeDbContext context)
+        public CustomerService(SolarCoffeDbContext context, ILogger<CustomerService> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public ServiceResponse<Customer> CreateCustomer(Customer customer)
         {
-            throw new NotImplementedException();
+
+            try
+            {
+                _logger.LogInformation("Creating customer ");
+                var result = _context.Customers.Add(customer);
+                _logger.LogInformation("Creating customer Address");
+                _context.CustomerAddresses.Add(customer.CustomerAddress);
+
+                _context.SaveChanges();
+                return new ServiceResponse<Customer>
+                {
+                    Data = result.Entity,
+                    IsSuccess = true,
+                    Message = "Successfully created"
+                };
+            }
+            catch (Exception e)
+            {
+
+                return new ServiceResponse<Customer>
+                {
+                    Data = null,
+                    IsSuccess = false,
+                    Message = e.StackTrace
+                };
+            }
+             
         }
 
         /// <summary>
