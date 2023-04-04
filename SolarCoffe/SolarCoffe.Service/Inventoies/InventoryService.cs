@@ -74,8 +74,10 @@ namespace SolarCoffe.Service.Inventoies
         {
             try
             {
-                var inventory = _context.ProductInventories.Include(x => x.Product)
+                var inventory = _context.ProductInventories
+                    .Include(x => x.Product)
                     .First(x => x.Product.Id == id);
+
                 inventory.QuantityOnHand += adjustment;
 
 
@@ -87,6 +89,8 @@ namespace SolarCoffe.Service.Inventoies
                 {
 
                     _logger.LogError("Errror createing inventory snapshot");
+                    _logger.LogError(e.StackTrace);
+
                 }
 
                 _context.SaveChanges();
@@ -106,7 +110,7 @@ namespace SolarCoffe.Service.Inventoies
                 {
                     Data = null,
                     IsSuccess = false,
-                    Message = e.StackTrace,
+                    Message = "Error updating Product Quantity On hand " + e.StackTrace,
 
                 };
             }

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SolarCoffe.Api.Serialization;
+using SolarCoffe.Api.ViewModels;
 using SolarCoffe.Service.Inventoies;
 using System;
 using System.Collections.Generic;
@@ -27,8 +29,31 @@ namespace SolarCoffe.Api.Controllers
         public IActionResult GetCurrentInventory()
         {
             _logger.LogInformation("Gerring all inventory");
-            return Ok();
+            var inventory = _inventory.GetCurrentInventory().Select(x => new ProductInventoryModel
+            {
+                DateCreated = x.DateCreated,
+                DateUpdaetd = x.DateUpdaetd,
+                Product = ProductMapper.SerializeProductModel(x.Product),
+                Id = x.Id,
+                IdealQuantity = x.IdealQuantity,
+                QuantityOnHand = x.QuantityOnHand
+                }).OrderBy(x=> x.Product.Name)
+            .ToList();
+
+            return Ok(inventory);
         }
+
+        [HttpPatch]
+        public IActionResult UpdateInventory(ShipmentModel shipment)
+        {
+            _logger.LogInformation("Updating inventory" + $"for {shipment.ProductId}" + $" Adjustment: {shipment.Adjustment}");
+
+            var inventory = _inventory.UpdateUnitsAvailable(shipment.ProductId, shipment.Adjustment);
+
+            return Ok(inventory);
+        }
+
+
 
     }
 }
