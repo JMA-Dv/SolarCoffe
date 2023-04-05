@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SolarCoffe.Data\SolarCoffe.Data.csproj" />
+    <ProjectReference Include="..\SolarCoffe.Service\SolarCoffe.Service.csproj" />
   </ItemGroup>
 
 

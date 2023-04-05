@@ -383,6 +383,9 @@ namespace SolarCoffe.Data.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp without time zone");
 
@@ -393,6 +396,8 @@ namespace SolarCoffe.Data.Migrations
                         .HasColumnType("boolean");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("SalesOrders");
                 });
@@ -492,6 +497,13 @@ namespace SolarCoffe.Data.Migrations
                     b.HasOne("SolarCoffe.Data.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
+                });
+
+            modelBuilder.Entity("SolarCoffe.Data.Models.SalesOrder", b =>
+                {
+                    b.HasOne("SolarCoffe.Data.Models.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId");
                 });
 
             modelBuilder.Entity("SolarCoffe.Data.Models.SalesOrderItem", b =>

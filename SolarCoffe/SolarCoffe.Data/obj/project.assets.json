@@ -1885,19 +1885,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Dracarys\\.nuget\\packages\\": {}
+    "C:\\Users\\aleja\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Dracarys\\Documents\\Workspace\\Personal Project\\SolarCoffe\\SolarCoffe\\SolarCoffe.Data\\SolarCoffe.Data.csproj",
+      "projectUniqueName": "C:\\Users\\aleja\\Documents\\Workspace\\Personal\\SolarCoffe\\SolarCoffe\\SolarCoffe.Data\\SolarCoffe.Data.csproj",
       "projectName": "SolarCoffe.Data",
-      "projectPath": "C:\\Users\\Dracarys\\Documents\\Workspace\\Personal Project\\SolarCoffe\\SolarCoffe\\SolarCoffe.Data\\SolarCoffe.Data.csproj",
-      "packagesPath": "C:\\Users\\Dracarys\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Dracarys\\Documents\\Workspace\\Personal Project\\SolarCoffe\\SolarCoffe\\SolarCoffe.Data\\obj\\",
+      "projectPath": "C:\\Users\\aleja\\Documents\\Workspace\\Personal\\SolarCoffe\\SolarCoffe\\SolarCoffe.Data\\SolarCoffe.Data.csproj",
+      "packagesPath": "C:\\Users\\aleja\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\aleja\\Documents\\Workspace\\Personal\\SolarCoffe\\SolarCoffe\\SolarCoffe.Data\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Dracarys\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\aleja\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1955,7 +1955,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.426\\RuntimeIdentifierGraph.json"
       }
     }
   }
