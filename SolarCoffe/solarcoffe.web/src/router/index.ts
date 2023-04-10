@@ -4,11 +4,11 @@ import VueRouter, { RouteConfig } from "vue-router";
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
-  // {
-  //   path: "/",
-  //   name: "home",
-  //   component: HomeView,
-  // },
+  {
+    path: "/orders",
+    name: "order",
+    component: () => import("../views/Orders.vue")
+  },
   {
     path: "/",
     name: "home",

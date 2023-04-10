@@ -48,6 +48,11 @@ export default class App extends Vue { }
 
 }
 
+hr {
+  border: 1px solid #eee;
+  margin: 1rem 0;
+}
+
 * {
   margin: 0;
 }

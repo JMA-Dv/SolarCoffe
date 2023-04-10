@@ -1,20 +1,40 @@
 <template >
     <div class="side-menu-container">
-        <img src="../assets/images/logo.jpg" alt="Loro logo" id="logoImg">
+
+        <router-link to="/">
+
+            <img src="../assets/images/logo.jpg" alt="Loro logo" id="logoImg">
+        </router-link>
         <h1>Management Portal</h1>
 
-        <SolarBtn isFullWidth :link="'/inventory'" id="menuInventory">
-            Inventory
-        </SolarBtn>
-        <SolarBtn isFullWidth :link="'/customers'" id="menuCustomer">
-            Manage Customers
-        </SolarBtn>
-        <SolarBtn isFullWidth :link="'/invoice/new'" id="menuInvoiceNew">
-            New Invoice
-        </SolarBtn>
-        <SolarBtn isFullWidth :link="'/orders'" id="menuOrders">
-            Orders
-        </SolarBtn>
+        <router-link to="/inventory">
+            <SolarBtn isFullWidth id="menuInventory">
+                Inventory
+            </SolarBtn>
+        </router-link>
+
+
+        <router-link to="/customers">
+
+            <SolarBtn isFullWidth id="menuCustomer">
+                Manage Customers
+            </SolarBtn>
+        </router-link>
+
+        <router-link to="/orders">
+            <SolarBtn isFullWidth id="menuOrders">
+                Orders
+            </SolarBtn>
+        </router-link>
+
+        <router-link to="/invoice/new">
+
+            <SolarBtn isFullWidth id="menuInvoiceNew">
+                New Invoice
+            </SolarBtn>
+        </router-link>
+
+
 
     </div>
 </template>
@@ -22,6 +42,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import SolarBtn from './SolarBtn.vue';
+// import { RouterLink } from 'vue-router';
 
 @Component({
     name: 'SideMenu',

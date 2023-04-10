@@ -18,14 +18,15 @@ import { Prop } from 'vue-property-decorator';
 })
 
 export default class SolarBtn extends Vue {
-    @Prop({ required: false, type: String })
-    link?: string;
+    // @Prop({ required: false, type: String })
+    // link?: string;
     @Prop({ required: false, type: Boolean, default: false })
     isFullWidth?: string;
 
     //TODO: Replace prop link to 'to'
-    visitRoute(): void {
-        this.$router.push(this.link);
+    visitRoute() {
+
+
     }
 
 }
@@ -43,10 +44,36 @@ export default class SolarBtn extends Vue {
     display: inline-block;
     cursor: pointer;
     font-size: 1rem;
-    min-width: none;
+    min-width: 100px;
+    border: none;
     border-radius: 2px solid darken($solar-blue, 20%);
     border-radius: 3px;
+
+
+    &:active {
+        background: $solar-yellow;
+        border-bottom: 2px solid lighten($solar-yellow, 20%);
+
+    }
+
+    &:hover {
+        background: lighten($solar-blue, 20%);
+        transition: background-color 0.5s;
+    }
+
+    &:disabled {
+        background: lighten($solar-blue, 15%);
+        border-bottom: 2px solid lighten($color: (
+                $solar-blue),
+            $amount: 20%
+        );
 }
+
+}
+
+
+
+
 
 
 .btn-link {
