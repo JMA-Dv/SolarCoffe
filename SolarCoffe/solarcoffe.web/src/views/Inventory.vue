@@ -4,6 +4,18 @@
             Inventory Dashboard
         </h1>
         <hr>
+
+        <div class="inventory-actions">
+            <SolarBtn @click.native="showNewProductModal" id="addNewBtn">
+                Add new Item
+            </SolarBtn>
+
+            <SolarBtn @click="showShipmentModal" id="receiveShipmentBtn">
+                Receive shipment</SolarBtn>
+
+
+        </div>
+
         <table id="inventoryTable" class="table">
             <tr>
                 <th>Item</th>
@@ -18,14 +30,23 @@
                     {{ item.product.name }}
                 </td>
                 <td>{{ item.quantityOnHand }}</td>
-                <td>{{ item.product.price }} </td>
-                <td>{{ item.product.isTaxable }}</td>
+                <td>{{ item.product.price | price }} </td>
                 <td>
-                    <div v-if="item.product.isArchived">Check</div>
-                    <div v-else>X</div>
+
+                    <span v-if="item.product.isTaxable">Yes</span>
+                    <span v-else>No</span>
+
+                </td>
+                <td>
+                    <span v-if="item.product.isArchived">Check</span>
+                    <span v-else>X</span>
                 </td>
             </tr>
         </table>
+
+
+        <new-product-modal v-if="isNewProductVisible" />
+        <shipment-modal v-if="isShipmentVisible" />
     </div>
 </template>
 
@@ -34,13 +55,17 @@ import Component from 'vue-class-component';
 import Vue from 'vue';
 //Since it's not a default export it's wrapped in a curly sintax
 import { IProductInventory } from '@/types/Product';
+import SolarBtn from '@/components/SolarBtn.vue';
 
 @Component({
     name: 'Inventory',
-    components: {}
+    components: { SolarBtn }
 })
 
 export default class Inventory extends Vue {
+    isNewProductVisible: boolean = false;
+    isShipmentVisible: boolean = false;
+
 
     inventory: IProductInventory[] = [
         {
@@ -60,12 +85,20 @@ export default class Inventory extends Vue {
                 name: "Product super nice", dateCreated: new Date(),
                 dateUpdated: new Date(),
                 description: "This is mock data for all purpouses",
-                id: 2, isArchived: false, isTaxable: true, price: 50
+                id: 2, isArchived: false, isTaxable: false, price: 50
             }
         }
     ];
 
 }
+
+// showNewProductModal(){
+
+// }
+
+// showShipmentModal(){
+
+// }
 </script>
 
 <style scoped>
