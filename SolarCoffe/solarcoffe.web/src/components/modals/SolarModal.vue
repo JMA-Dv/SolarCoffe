@@ -1,7 +1,20 @@
 <template>
-    <Transition name="modal-fade">
+    <transition name="modal-fade">
+        <div class="modal-backdrop">
+            <div class="modal" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDescription">
+                <header class="modal-header" id="modalTitle">
+                    <slot name="header"></slot>
+                </header>
+                <section class="modal-body" id="modalDescription">
+                    <slot name="body"></slot>
+                </section>
 
-    </Transition>
+                <footer class="modal-footer">
+                    <slot name="footer"></slot>
+                </footer>
+            </div>
+        </div>
+    </transition>
 </template>
 <script lang="ts">
 import Vue from "vue";
@@ -71,5 +84,15 @@ export default class SolarModal extends Vue {
 .modal-body {
     position: relative;
     padding: 2.4rem;
+}
+
+.modal-fade-enter,
+.modal-fade-leave-active {
+    opacity: 0;
+}
+
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+    transition: opacity .5s ease;
 }
 </style>

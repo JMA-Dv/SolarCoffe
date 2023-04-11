@@ -45,8 +45,8 @@
         </table>
 
 
-        <new-product-modal v-if="isNewProductVisible" />
-        <shipment-modal v-if="isShipmentVisible" />
+        <new-product-modal v-if="isNewProductVisible" @close="closeModal" />
+        <shipment-modal v-if="isShipmentVisible" :inventory="inventory" @close="closeModal" />
     </div>
 </template>
 
@@ -90,15 +90,20 @@ export default class Inventory extends Vue {
         }
     ];
 
+    showNewProductModal(): void {
+
+    }
+
+    showShipmentModal(): void {
+
+    }
+
+    closeModals() {
+        this.isShipmentVisible = false;
+        this.isNewProductVisible = false;
+    }
 }
 
-// showNewProductModal(){
-
-// }
-
-// showShipmentModal(){
-
-// }
 </script>
 
 <style scoped>

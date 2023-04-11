@@ -1,6 +1,6 @@
 <template>
     <div class="btn-link">
-        <button :class="['solar-btn', { 'full-width': isFullWidth }]" v-on:click="visitRoute">
+        <button type="button" :class="['solar-btn', { 'full-width': isFullWidth }]" v-on:click="onClick">
             <slot></slot>
         </button>
     </div>
@@ -23,10 +23,8 @@ export default class SolarBtn extends Vue {
     @Prop({ required: false, type: Boolean, default: false })
     isFullWidth?: string;
 
-    //TODO: Replace prop link to 'to'
-    visitRoute() {
-
-
+    onClick() {
+        this.$emit('button:click')
     }
 
 }
