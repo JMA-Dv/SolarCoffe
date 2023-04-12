@@ -7,8 +7,8 @@
             <label for="product">Product Received</label>
             <select v-model="selectedProduct" class="shipmentItems" id="product">
                 <option disabled value="">Plase select one</option>
-                <option v-for="item in inventory" :value="item" :key="item.id">
-                    {{ item. }}
+                <option v-for="items in inventory" :value="items" :key="items.id">
+                    {{ items.product.name }}
 
                 </option>
             </select>
@@ -35,6 +35,7 @@ import SolarBtn from "../SolarBtn.vue";
 import SolarModal from "./SolarModal.vue";
 import { Prop } from "vue-property-decorator";
 import { IProduct, IProductInventory } from "@/types/Product";
+import { IShipment } from "@/types/Shipment";
 @Component({
     name: 'ShipmentModal',
     components: { SolarModal, SolarBtn }
@@ -43,8 +44,16 @@ import { IProduct, IProductInventory } from "@/types/Product";
 export default class ShipmentModal extends Vue {
 
     @Prop({ required: true, type: Array as () => IProductInventory[] })
-    inventory!: IProductInventory
+    inventory!: IProductInventory[]
 
+    save(): void {
+        let shipment: IShipment = {
+            productId: this.selectedProduct.id,
+            adjustment: this.qtyReceived
+
+        };
+        this.$emit('save:shipment', shipment);
+    }
     close() {
         this.$emit("close");
     }

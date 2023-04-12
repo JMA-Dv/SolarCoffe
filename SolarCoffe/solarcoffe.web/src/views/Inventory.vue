@@ -10,10 +10,9 @@
                 Add new Item
             </SolarBtn>
 
-            <SolarBtn @click="showShipmentModal" id="receiveShipmentBtn">
-                Receive shipment</SolarBtn>
-
-
+            <SolarBtn @click.native="showShipmentModal" id="receiveShipmentBtn">
+                Receive shipment
+            </SolarBtn>
         </div>
 
         <table id="inventoryTable" class="table">
@@ -45,8 +44,9 @@
         </table>
 
 
-        <new-product-modal v-if="isNewProductVisible" @close="closeModal" />
-        <shipment-modal v-if="isShipmentVisible" :inventory="inventory" @close="closeModal" />
+        <new-product-modal v-if="isNewProductVisible" @save:product="saveNewProduct" @close="closeModals" />
+        <shipment-modal v-if="isShipmentVisible" :inventory="inventory" @save:shipment="saveNewShipment"
+            @close="closeModals" />
     </div>
 </template>
 
@@ -54,12 +54,15 @@
 import Component from 'vue-class-component';
 import Vue from 'vue';
 //Since it's not a default export it's wrapped in a curly sintax
-import { IProductInventory } from '@/types/Product';
+import { IProduct, IProductInventory } from '@/types/Product';
 import SolarBtn from '@/components/SolarBtn.vue';
+import ShipmentModal from '@/components/modals/ShipmentModal.vue';
+import NewProductModal from '@/components/modals/NewProductModal.vue';
+import { IShipment } from '@/types/Shipment';
 
 @Component({
     name: 'Inventory',
-    components: { SolarBtn }
+    components: { SolarBtn, ShipmentModal, NewProductModal }
 })
 
 export default class Inventory extends Vue {
@@ -67,6 +70,14 @@ export default class Inventory extends Vue {
     isShipmentVisible: boolean = false;
 
 
+    saveNewProduct(newProduct: IProduct) {
+        console.log("🚀 ~ file: Inventory.vue:74 ~ Inventory ~ saveNewProduct ~ newProduct:", newProduct)
+
+    }
+    saveNewShipment(shipment: IShipment) {
+        console.log("🚀 ~ file: Inventory.vue:77 ~ Inventory ~ saveNewShipment ~ shipment:", shipment)
+
+    }
     inventory: IProductInventory[] = [
         {
             id: 1,
@@ -92,13 +103,15 @@ export default class Inventory extends Vue {
 
     showNewProductModal(): void {
 
+        this.isNewProductVisible = true
     }
 
     showShipmentModal(): void {
+        this.isShipmentVisible = true;
 
     }
 
-    closeModals() {
+    closeModals(): void {
         this.isShipmentVisible = false;
         this.isNewProductVisible = false;
     }
@@ -109,5 +122,11 @@ export default class Inventory extends Vue {
 <style scoped>
 .inventoryTitle {
     font-size: 30px;
+}
+
+.inventory-actions {
+    display: flex;
+    justify-content: space-between;
+
 }
 </style>
