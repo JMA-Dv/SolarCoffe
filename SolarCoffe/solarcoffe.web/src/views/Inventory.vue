@@ -82,29 +82,6 @@ export default class Inventory extends Vue {
 
     }
     inventory: IProductInventory[] = [];
-    // = [
-    //     {
-    //         id: 1,
-    //         idealQuantity: 2, quantityOnHand: 2,
-    //         product: {
-    //             name: "Product example", dateCreated: new Date(),
-    //             dateUpdated: new Date(),
-    //             description: "This is mock data",
-    //             id: 1, isArchived: false, isTaxable: true, price: 20
-    //         }
-    //     },
-    //     {
-    //         id: 2,
-    //         idealQuantity: 4, quantityOnHand: 3,
-    //         product: {
-    //             name: "Product super nice", dateCreated: new Date(),
-    //             dateUpdated: new Date(),
-    //             description: "This is mock data for all purpouses",
-    //             id: 2, isArchived: false, isTaxable: false, price: 50
-    //         }
-    //     }
-    // ];
-
     showNewProductModal(): void {
 
         this.isNewProductVisible = true
@@ -121,7 +98,12 @@ export default class Inventory extends Vue {
     }
 
     created() {
-        inventoryService.GetInventory();
+        this.init();
+    }
+
+    async init() {
+
+        this.inventory = await inventoryService.GetInventory();
     }
 }
 

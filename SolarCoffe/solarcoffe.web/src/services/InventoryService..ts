@@ -9,7 +9,7 @@ export class InventoryService {
 
     public async GetInventory(): Promise<any> {
         let result: any = await axios.get(`${this.API_URL}/inventory`);
-
         console.log("🚀 ~ file: InventoryService..ts:13 ~ InventoryService ~ GetInventory ~ result:", result)
+        return result.data;
     }
 }
