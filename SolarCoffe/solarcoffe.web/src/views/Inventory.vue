@@ -59,7 +59,10 @@ import SolarBtn from '@/components/SolarBtn.vue';
 import ShipmentModal from '@/components/modals/ShipmentModal.vue';
 import NewProductModal from '@/components/modals/NewProductModal.vue';
 import { IShipment } from '@/types/Shipment';
+import { InventoryService } from '@/services/InventoryService.';
 
+
+const inventoryService = new InventoryService();
 @Component({
     name: 'Inventory',
     components: { SolarBtn, ShipmentModal, NewProductModal }
@@ -78,28 +81,29 @@ export default class Inventory extends Vue {
         console.log("🚀 ~ file: Inventory.vue:77 ~ Inventory ~ saveNewShipment ~ shipment:", shipment)
 
     }
-    inventory: IProductInventory[] = [
-        {
-            id: 1,
-            idealQuantity: 2, quantityOnHand: 2,
-            product: {
-                name: "Product example", dateCreated: new Date(),
-                dateUpdated: new Date(),
-                description: "This is mock data",
-                id: 1, isArchived: false, isTaxable: true, price: 20
-            }
-        },
-        {
-            id: 2,
-            idealQuantity: 4, quantityOnHand: 3,
-            product: {
-                name: "Product super nice", dateCreated: new Date(),
-                dateUpdated: new Date(),
-                description: "This is mock data for all purpouses",
-                id: 2, isArchived: false, isTaxable: false, price: 50
-            }
-        }
-    ];
+    inventory: IProductInventory[] = [];
+    // = [
+    //     {
+    //         id: 1,
+    //         idealQuantity: 2, quantityOnHand: 2,
+    //         product: {
+    //             name: "Product example", dateCreated: new Date(),
+    //             dateUpdated: new Date(),
+    //             description: "This is mock data",
+    //             id: 1, isArchived: false, isTaxable: true, price: 20
+    //         }
+    //     },
+    //     {
+    //         id: 2,
+    //         idealQuantity: 4, quantityOnHand: 3,
+    //         product: {
+    //             name: "Product super nice", dateCreated: new Date(),
+    //             dateUpdated: new Date(),
+    //             description: "This is mock data for all purpouses",
+    //             id: 2, isArchived: false, isTaxable: false, price: 50
+    //         }
+    //     }
+    // ];
 
     showNewProductModal(): void {
 
@@ -115,6 +119,10 @@ export default class Inventory extends Vue {
         this.isShipmentVisible = false;
         this.isNewProductVisible = false;
     }
+
+    created() {
+        inventoryService.GetInventory();
+    }
 }
 
 </script>
@@ -122,11 +130,5 @@ export default class Inventory extends Vue {
 <style scoped>
 .inventoryTitle {
     font-size: 30px;
-}
-
-.inventory-actions {
-    display: flex;
-    justify-content: space-between;
-
 }
 </style>

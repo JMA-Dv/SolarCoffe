@@ -11,19 +11,18 @@ import Component from 'vue-class-component';
 import Vue from 'vue';
 import { Prop } from 'vue-property-decorator';
 
-
 @Component({
     name: 'SolarBtn',
     components: {}
 })
 
 export default class SolarBtn extends Vue {
-    // @Prop({ required: false, type: String })
-    // link?: string;
     @Prop({ required: false, type: Boolean, default: false })
     isFullWidth?: string;
 
     onClick() {
+        console.log("🚀 ~ file: SolarBtn.vue:24 ~ SolarBtn ~ onClick ~ onClick:")
+
         this.$emit('button:click')
     }
 
@@ -68,11 +67,6 @@ export default class SolarBtn extends Vue {
 }
 
 }
-
-
-
-
-
 
 .btn-link {
     width: 100%;

@@ -55,6 +55,7 @@ export default class ShipmentModal extends Vue {
         this.$emit('save:shipment', shipment);
     }
     close() {
+        console.log("🚀 ~ file: ShipmentModal.vue:58 ~ ShipmentModal ~ close ~ close:")
         this.$emit("close");
     }
 

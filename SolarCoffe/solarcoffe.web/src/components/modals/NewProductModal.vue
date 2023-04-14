@@ -28,7 +28,7 @@
             <solar-btn type="button" @click.native="save" aria-label="save new item">
                 Save Product
             </solar-btn>
-            <solar-btn type="button" @click.native="close()" aria-label="close modal">
+            <solar-btn type="button" @click.native="close" aria-label="close modal">
 
                 Close modal
             </solar-btn>
@@ -51,6 +51,7 @@ export default class NewProductModal extends Vue {
 
 
     close() {
+        console.log("🚀 ~ file: NewProductModal.vue:54 ~ NewProductModal ~ close ~ close:")
         this.$emit("close");
     }
 
