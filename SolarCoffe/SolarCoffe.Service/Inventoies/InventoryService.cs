@@ -42,8 +42,9 @@ namespace SolarCoffe.Service.Inventoies
 
         public IReadOnlyCollection<ProductInventory> GetCurrentInventory()
         {
-                var result = _context.ProductInventories.Include(x => x.Product)
-                    .Where(x => x.Product.IsArchived
+                var result = _context.ProductInventories
+                .Include(x => x.Product)
+                    .Where(x => !x.Product.IsArchived
                     ).ToList().AsReadOnly();
 
                 return result;
