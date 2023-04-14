@@ -71,17 +71,18 @@ const inventoryService = new InventoryService();
 export default class Inventory extends Vue {
     isNewProductVisible: boolean = false;
     isShipmentVisible: boolean = false;
-
+    inventory: IProductInventory[] = [];
 
     saveNewProduct(newProduct: IProduct) {
         console.log("🚀 ~ file: Inventory.vue:74 ~ Inventory ~ saveNewProduct ~ newProduct:", newProduct)
 
     }
-    saveNewShipment(shipment: IShipment) {
-        console.log("🚀 ~ file: Inventory.vue:77 ~ Inventory ~ saveNewShipment ~ shipment:", shipment)
-
+    async saveNewShipment(shipment: IShipment) {
+        await inventoryService.UpdateInventoryQuantity(shipment);
+        this.isShipmentVisible = false;
+        await this.init();
     }
-    inventory: IProductInventory[] = [];
+
     showNewProductModal(): void {
 
         this.isNewProductVisible = true
