@@ -19,7 +19,7 @@
                 </li>
                 <li>
                     <label for="productPrice">Price</label>
-                    <input type="text" id="productPrice" v-model="newProduct.price">
+                    <input type="number" id="productPrice" v-model.number="newProduct.price">
                 </li>
             </ul>
 
@@ -54,13 +54,15 @@ export default class NewProductModal extends Vue {
         console.log("🚀 ~ file: NewProductModal.vue:54 ~ NewProductModal ~ close ~ close:")
         this.$emit("close");
     }
-
+    /**
+     * TODO://Remove default properties
+     */
     newProduct: IProduct = {
         dateCreated: new Date(),
         dateUpdated: new Date(),
         id: 0,
         description: "",
-        isArchived: true,
+        isArchived: false,
         isTaxable: false,
         name: "",
         price: 0,

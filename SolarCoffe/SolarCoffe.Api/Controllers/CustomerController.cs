@@ -28,6 +28,11 @@ namespace SolarCoffe.Api.Controllers
         [HttpPost]
         public ActionResult CreateCustomer(CustomerModel customerModel)
         {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             _logger.LogInformation("Creating customer");
 
             customerModel.DateCreated = DateTime.UtcNow;

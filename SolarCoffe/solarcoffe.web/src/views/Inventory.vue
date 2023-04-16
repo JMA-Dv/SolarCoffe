@@ -28,7 +28,9 @@
                 <td>
                     {{ item.product.name }}
                 </td>
-                <td>{{ item.quantityOnHand }}</td>
+                <td :class="`${applyColor(item.quantityOnHand, item.idealQuantity)}`">
+                    {{ item.quantityOnHand }}
+                </td>
                 <td>{{ item.product.price | price }} </td>
                 <td>
 
@@ -37,8 +39,9 @@
 
                 </td>
                 <td>
-                    <span v-if="item.product.isArchived">Check</span>
-                    <span v-else>X</span>
+                    <div class="lni lni-cross-circle product-archive" @click="archiveProduct(item.product.id)">
+
+                    </div>
                 </td>
             </tr>
         </table>
@@ -60,8 +63,9 @@ import ShipmentModal from '@/components/modals/ShipmentModal.vue';
 import NewProductModal from '@/components/modals/NewProductModal.vue';
 import { IShipment } from '@/types/Shipment';
 import { InventoryService } from '@/services/InventoryService.';
+import { ProductService } from '@/services/ProductService';
 
-
+const productService = new ProductService();
 const inventoryService = new InventoryService();
 @Component({
     name: 'Inventory',
@@ -73,9 +77,31 @@ export default class Inventory extends Vue {
     isShipmentVisible: boolean = false;
     inventory: IProductInventory[] = [];
 
-    saveNewProduct(newProduct: IProduct) {
-        console.log("🚀 ~ file: Inventory.vue:74 ~ Inventory ~ saveNewProduct ~ newProduct:", newProduct)
 
+    applyColor(current: number, target: number) {
+        if (current <= 1) {
+            console.log("🚀 ~ file: Inventory.vue:81 ~ Inventory ~ applyColor ~ current:", current)
+
+            return "red";
+        }
+
+        if (Math.abs(target - current) > 8) {
+            console.log("🚀 ~ file: Inventory.vue:87 ~ Inventory ~ applyColor ~ abs:")
+
+            return "yellow";
+        }
+
+        return "green"
+    }
+
+    async saveNewProduct(newProduct: IProduct) {
+        await productService.saveProduct(newProduct);
+        this.isNewProductVisible = false;
+        await this.init();
+    }
+    async archiveProduct(productId: number) {
+        await productService.archive(productId);
+        await this.init();
     }
     async saveNewShipment(shipment: IShipment) {
         await inventoryService.UpdateInventoryQuantity(shipment);
@@ -110,8 +136,37 @@ export default class Inventory extends Vue {
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import "@/scss/global.scss";
+
 .inventoryTitle {
     font-size: 30px;
+}
+
+.green {
+    font-weight: bold;
+    color: $solar-green;
+}
+
+.yellow {
+    font-weight: bold;
+    color: $solar-yellow;
+}
+
+.red {
+    font-weight: bold;
+    color: $solar-red;
+}
+
+.inventory-actions {
+    display: flex;
+    margin-bottom: 0.8rem;
+}
+
+.product-archive {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: $solar-red;
 }
 </style>

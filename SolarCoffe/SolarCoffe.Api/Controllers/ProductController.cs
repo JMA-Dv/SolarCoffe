@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SolarCoffe.Api.Serialization;
+using SolarCoffe.Api.ViewModels;
 using SolarCoffe.Service.Products;
 using System.Linq;
 
@@ -61,5 +62,20 @@ namespace SolarCoffe.Api.Controllers
             return Ok(response);
         }
         
+
+        [HttpPost]
+
+        public IActionResult SaveProduct(ProductModel product)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            _Logger.LogInformation("Saving product");
+            var newProduct = ProductMapper.SerializeProductModel(product);
+            var response = _product.CreateProduct(newProduct);
+            return Ok(response);
+
+        }
     }
 }
