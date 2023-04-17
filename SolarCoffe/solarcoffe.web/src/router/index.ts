@@ -24,6 +24,16 @@ const routes: Array<RouteConfig> = [
     name: "inventory",
     component: () => import("@/views/Inventory.vue")
   },
+  {
+    path: "/customers",
+    name: "customers",
+    component: () => import("@/views/Customers.vue")
+  },
+  {
+    path: "/invoice/new",
+    name: "create-invoice",
+    component: () => import("@/views/CreateInvoice.vue")
+  },
 
 ];
 
