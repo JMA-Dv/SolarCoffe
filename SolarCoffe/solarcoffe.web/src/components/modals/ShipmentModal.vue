@@ -7,13 +7,13 @@
             <label for="product">Product Received</label>
             <select v-model="selectedProduct" class="shipmentItems" id="product">
                 <option disabled value="">Plase select one</option>
-                <option v-for="items in inventory" :value="items" :key="items.id">
+                <option v-for="items in inventory" :value="items.product" :key="items.id">
                     {{ items.product.name }}
 
                 </option>
             </select>
             <label for="qtyReceived">Quantity Received: </label>
-            <input type="number" id="qtyReceived" v-model="qtyReceived">
+            <input type="number" id="qtyReceived" v-model.number="qtyReceived">
         </template>
         <template v-slot:footer>
             <solar-btn type="button" @button:click="save" aria-label="save new shipment">
@@ -46,18 +46,7 @@ export default class ShipmentModal extends Vue {
     @Prop({ required: true, type: Array as () => IProductInventory[] })
     inventory!: IProductInventory[]
 
-    save(): void {
-        let shipment: IShipment = {
-            productId: this.selectedProduct.id,
-            adjustment: this.qtyReceived
 
-        };
-        this.$emit('save:shipment', shipment);
-    }
-    close() {
-        console.log("🚀 ~ file: ShipmentModal.vue:58 ~ ShipmentModal ~ close ~ close:")
-        this.$emit("close");
-    }
 
     selectedProduct: IProduct = {
         dateCreated: new Date(),
@@ -70,7 +59,27 @@ export default class ShipmentModal extends Vue {
         price: 20,
 
     };
+
+
     qtyReceived: number = 0;
+
+
+    save(): void {
+        console.log("🚀 ~ file: ShipmentModal.vue:50 ~ ShipmentModal ~ save ~ save:", this.selectedProduct)
+
+        let shipment: IShipment = {
+            productId: this.selectedProduct.id,
+            adjustment: this.qtyReceived
+        };
+        this.$emit('save:shipment', shipment);
+    }
+    close() {
+        console.log("🚀 ~ file: ShipmentModal.vue:58 ~ ShipmentModal ~ close ~ close:")
+        this.$emit("close");
+    }
+
+
+
 
 }
 </script>
