@@ -26,7 +26,7 @@
 <script lang="ts">
 import SolarBtn from "@/components/SolarBtn.vue";
 import { Component, Vue } from "vue-property-decorator";
-
+import { ICustomer } from "@/types/Customer";
 
 @Component({
     name: 'Customers',
@@ -36,6 +36,8 @@ import { Component, Vue } from "vue-property-decorator";
 
 
 export default class Customers extends Vue {
+
+    customers: ICustomer[] = [];
 
     isCustomerModalVisible: boolean = false;
     showNewCustomerModal() {
