@@ -20,8 +20,9 @@ export class CustomerService {
 
 
     async deleteCustomer(customerId: number): Promise<boolean> {
-        let result: Promise<boolean> = HTTP.delete(`customer/${customerId}`);
-        return result;
+        let result = await HTTP.delete(`customer/${customerId}`);
+        return result.data;
+
     }
 
 }
