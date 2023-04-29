@@ -33,7 +33,7 @@
                 </li>
                 <li>
                     <label for="postalCode">Postal code</label>
-                    <input type="number" id="postalCode" v-model.number="customer.customerAddress.postalCode">
+                    <input type="number" id="postalCode" v-model="customer.customerAddress.postalCode">
 
                 </li>
                 <li>
@@ -63,13 +63,14 @@ import SolarModal from './SolarModal.vue';
 import { ICustomer } from '@/types/Customer';
 
 @Component({
-    name: 'CustomerModal',
+    name: 'NewCustomerModal',
     components: { SolarBtn, SolarModal }
 })
 
-export default class CustomerModal extends Vue {
+export default class NewCustomerModal extends Vue {
 
     customer: ICustomer = {
+        id: 0,
         firstName: '',
         lastName: '',
         customerAddress: {
@@ -80,7 +81,7 @@ export default class CustomerModal extends Vue {
             postalCode: '',
             country: ''
         },
-        id: 0,
+
         dateCreated: new Date()
     };
 

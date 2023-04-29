@@ -23,7 +23,7 @@
                 <td>{{ fullName(item.firstName, item.lastName) }} </td>
                 <td>{{ item.customerAddress.addressLine }}</td>
                 <td>{{ item.customerAddress.state }}</td>
-                <td>{{ item.dateCreated | fDate }}}</td>
+                <td>{{ item.dateCreated | fDate }}</td>
                 <td>
                     <div class="lni lni-cross-circle customer-delete" @click="deleteCustomer(item.id)">
 
@@ -32,6 +32,8 @@
 
             </tr>
         </table>
+        <new-customer-modal v-if="isCustomerModalVisible" @save:customer="createNewCustomer"
+            @close="closeModal"></new-customer-modal>
     </div>
 </template>
 
@@ -40,11 +42,12 @@ import SolarBtn from "@/components/SolarBtn.vue";
 import { Component, Vue } from "vue-property-decorator";
 import { ICustomer } from "@/types/Customer";
 import { CustomerService } from "@/services/CustomerService";
+import NewCustomerModal from "@/components/modals/NewCustomerModal.vue";
 const customerService = new CustomerService();
 
 @Component({
     name: 'Customers',
-    components: { SolarBtn }
+    components: { SolarBtn, NewCustomerModal }
 })
 
 
@@ -58,16 +61,25 @@ export default class Customers extends Vue {
     fullName(name: string, lastName: string): string {
         return `${name} - ${lastName}`
     }
+    closeModal() {
+        this.isCustomerModalVisible = false;
+    }
     showNewCustomerModal() {
         this.isCustomerModalVisible = true;
     }
 
-    async delete(id: number) {
+    async deleteCustomer(id: number) {
         await customerService.deleteCustomer(id);
-        this.init();
+        await this.init();
     }
     async init() {
         this.customers = await customerService.GetCustomers();
+    }
+
+    async createNewCustomer(customer: ICustomer) {
+        await customerService.saveCustomer(customer);
+        this.closeModal();
+        await this.init();
     }
 
     created() {
@@ -87,6 +99,10 @@ export default class Customers extends Vue {
         margin-right: 0.8rem;
     }
 
+}
+
+#customersTitle {
+    font-size: 30px;
 }
 
 .customer-delete {
