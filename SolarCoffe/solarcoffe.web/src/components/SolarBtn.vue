@@ -21,8 +21,6 @@ export default class SolarBtn extends Vue {
     isFullWidth?: string;
 
     onClick() {
-        console.log("🚀 ~ file: SolarBtn.vue:24 ~ SolarBtn ~ onClick ~ onClick:")
-
         this.$emit('button:click')
     }
 

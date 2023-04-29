@@ -3,7 +3,7 @@
 
         <router-link to="/">
 
-            <img src="../assets/images/logo.jpg" alt="Loro logo" id="logoImg">
+            <img src="../assets/images/bird_2.jpg" alt="Loro logo" id="logoImg">
         </router-link>
         <h1>Management Portal</h1>
 
