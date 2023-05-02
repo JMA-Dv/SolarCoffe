@@ -31,5 +31,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### Moment js
 ```
-npm i moment
+pnpm i moment
 ```
