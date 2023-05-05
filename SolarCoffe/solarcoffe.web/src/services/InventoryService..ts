@@ -10,13 +10,11 @@ export class InventoryService {
 
     public async GetInventory(): Promise<IProductInventory[]> {
         let result = await HTTP.get(`/inventory`);
-        console.log("🚀 ~ file: InventoryService..ts:13 ~ InventoryService ~ GetInventory ~ result:", result)
         return result.data;
     }
 
     public async UpdateInventoryQuantity(Shipment: IShipment): Promise<IShipment> {
         let result = await HTTP.patch('/inventory', Shipment);
-        console.log("🚀 ~ file: InventoryService..ts:19 ~ InventoryService ~ UpdateInventoryQuantity ~ result:", result)
         return result.data;
     }
 
