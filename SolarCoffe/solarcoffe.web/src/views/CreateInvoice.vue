@@ -49,32 +49,51 @@
                 </div>
                 <hr />
 
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Product
+                <invoice-table :lineItem="lineItems"></invoice-table>
 
-                            </th>
-                            <th>Description</th>
-                            <th>Qty</th>
-                            <th>Price</th>
-                            <th>Subtotal</th>
-                        </tr>
-                    </thead>
-                    <tr v-for="item in lineItems" :key="item.product.id">
-                        <td>{{ item.product.name }}</td>
-                        <td>{{ item.product.description }}</td>
-                        <td>{{ item.quantity }} </td>
-                        <td>{{ item.product.price }}</td>
 
-                        <td>{{ subTotal(item.product.price, item.quantity) | price }}</td>
-
-                    </tr>
-                </table>
             </div>
         </div>
         <div class="invoice-step" v-if="invoiceStep === 3">
+            <h2>Step 3: Review and suubmit </h2>
+            <solar-btn @button:click="submitInvoice">Submit Invoice</solar-btn>
+            <hr>
+            <div class="invoice-step-detail" id="invoice" ref="invoice">
+                <div class="invoice-logo">
+                    <img id="imgLogo" alt="Coffe Logo" src="../assets/images/logo.jpg" />
 
+                    <h3>123 somewhere</h3>
+                    <h3>Somewhere whereas here</h3>
+                    <h3>This countr</h3>
+                    <div class="invoice-order-list" v-if="lineItems.length">
+                        <div class="invoice-header">
+                            <h3>Invoice {{ getCurrentDate | fDate }}</h3>
+                            <h3>Customer: {{ fullName(selectedCustomer?.firstName, selectedCustomer?.lastName) }} </h3>
+                            <h3>Address: {{ selectedCustomer.customerAddress.addressLine }}</h3>
+                            <h3>Address:
+                                {{ selectedCustomer.customerAddress.city }}
+                                {{ selectedCustomer.customerAddress.state }}
+                                {{ selectedCustomer.customerAddress.postalCode }}
+                            </h3>
+                            <h3>
+                                {{ selectedCustomer.customerAddress.country }}
+                            </h3>
+                        </div>
+                        <invoice-table :lineItem="lineItems">
+                            <template v-slot:grandTotal>
+                                <th colspan="4"></th>
+                                <th>Grand Total</th>
+                            </template>
+                            <template v-slot:tableFooter>
+                                <tr>
+                                    <td colspan="4" class="due">Balance due upon receipt:</td>
+                                    <td class="price-final">{{ runningTotal | price }}</td>
+                                </tr>
+                            </template>
+                        </invoice-table>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="invoice-steps-actions">
             <solar-btn @button:click="prev" :disabled="!canGoPrev">
@@ -98,16 +117,20 @@ import InvoiceService from '@/services/InvoiceService';
 import { ICustomer } from '@/types/Customer';
 import { IInvoice, ILineItem } from '@/types/IInvoice';
 import { IProductInventory } from '@/types/Product';
-
+import InvoiceTable from '@/components/tables/InvoiceTable.vue';
+import html2canvas from 'html2canvas';
 import Vue from 'vue'
+
+import { jsPDF } from "jspdf";
+
+
 import Component from 'vue-class-component';
 const customerService = new CustomerService();
 const inventoryService = new InventoryService();
 const invoiceService = new InvoiceService();
 
 @Component({
-    name: "CreateInvoice",
-    components: { SolarBtn }
+    components: { SolarBtn, InvoiceTable }
 })
 
 
@@ -143,6 +166,9 @@ export default class CreateInvoice extends Vue {
             .reduce((a, b) => a + (b['product']!['price'] * b['quantity']), 0);
     }
 
+    get getCurrentDate(): Date {
+        return new Date();
+    }
     get canGoPrev(): boolean {
         return this.invoiceStep !== 1;
     }
@@ -164,12 +190,43 @@ export default class CreateInvoice extends Vue {
         return false;
     }
 
-    fullName(firstName: string, lastName: string) {
+    get selectedCustomer(): ICustomer {
+        let currentCustomer = this.customers.find(item => item.id === this.selectedCustomerId)
+        if (currentCustomer) {
+            return currentCustomer;
+        }
+        throw new Error("Could not find customer");
+    }
+    async submitInvoice(): Promise<void> {
+        this.inovice = {
+            customerId: this.selectedCustomerId,
+            lineItems: this.lineItems,
+            dateCreated: new Date(),
+
+        };
+
+        await invoiceService.makeNewInvoice(this.inovice);
+        this.downloadPfg();
+        await this.$router.push('/orders');
+    }
+    downloadPfg() {
+        let pdf = new jsPDF("p", "pt", "a4", true);
+        let invoice = document.getElementById('invoice')!;
+
+        if (typeof (invoice) !== null) {
+
+            html2canvas(invoice).then(canvas => {
+                let image = canvas.toDataURL("image/png");
+                pdf.addImage(image, "PNG", 0, 0, 940 * 0.55, 940 * 0.55);
+                pdf.save('invoice')
+            })
+        }
+
+    }
+    fullName(firstName?: string, lastName?: string) {
         return `${firstName} - ${lastName}`
     }
-    subTotal(price: number, quantity: number): number {
-        return (price * quantity);
-    }
+
 
 
     startOver(): void {
@@ -177,6 +234,9 @@ export default class CreateInvoice extends Vue {
         this.invoiceStep = 1;
     }
 
+    subTotal(price: number, quantity: number): number {
+        return (price * quantity);
+    }
     addLineItem() {
         let newItem: ILineItem = {
             product: this.newItem.product,
@@ -249,7 +309,6 @@ export default class CreateInvoice extends Vue {
     width: 100%;
 }
 
-.invoice-step {}
 
 .invoice-order-list {
     margin-top: 1.2rem;
@@ -274,18 +333,12 @@ export default class CreateInvoice extends Vue {
     font-weight: bold;
 }
 
-.price-final {
-    font-weight: bold;
-    color: $solar-green;
-}
 
 .invoice-step-detail {
     margin: 1.2rem;
 }
 
-.due {
-    font-weight: bold;
-}
+
 
 .invoice-header {
     width: 100%;
