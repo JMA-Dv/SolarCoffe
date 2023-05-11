@@ -18,6 +18,12 @@
                 <td>{{ item.customer.id }}</td>
                 <td>{{ item.id }}</td>
                 <td>{{ getTotal(item) }}</td>
+                <td :class="{ green: item.isPaid }">{{ getStatus(item.isPaid) }}</td>
+                <td>
+                    <div v-if="!item.isPaid" class="lni-check-mark-circle order-complete " @click="markAsComplete(item.id)">
+
+                    </div>
+                </td>
             </tr>
 
 
@@ -38,12 +44,20 @@ export default class Order extends Vue {
     orders: ISalesOrder[] = [];
 
     getTotal(order: ISalesOrder) {
-        return order.salesorderItems.reduce((a, b) => a + (b["product"]["price"] * b["quantity"]), 0);
+        return order.salesorderItems.reduce((a, b) => a + b["product"]["price"] * b["quantity"], 0);
+    }
+
+    getStatus(isPaid: boolean): string {
+        return (isPaid) ? "Paid in full" : "Unpain";
     }
     async init() {
         this.orders = await orderService.GetOrders();
     }
 
+    async markAsComplete(id: number): Promise<void> {
+        await orderService.MarkAsCompleted(id);
+        await this.init();
+    }
     created() {
         this.init();
     }

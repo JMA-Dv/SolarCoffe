@@ -47,3 +47,7 @@ npm add html2canvas
 https://github.com/parallax/jsPDF
 ```
 
+### LineIcons
+```
+https://lineicons.com/icons/
+```
