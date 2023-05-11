@@ -1,4 +1,5 @@
 import { extname } from "path";
+import { IBaseInterface } from "./BaseInterface";
 import { ICustomer } from "./Customer";
 import { ILineItem } from "./IInvoice";
 
