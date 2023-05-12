@@ -57,10 +57,12 @@ namespace SolarCoffe.Service.Inventoies
         public List<ProductInventorySnapshot> GetSnapshotHistory()
         {
             var earliest = DateTime.UtcNow - TimeSpan.FromHours(6);
-            return _context.ProductInventorySnapshots
+            var result = _context.ProductInventorySnapshots
                 .Include(x => x.Product)
                 .Where(x => x.SnapshotTime > earliest 
                 && !x.Product.IsArchived).ToList();
+
+            return result;
         }
 
         /// <summary>
