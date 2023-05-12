@@ -6,10 +6,10 @@ import { IBaseInterface } from "./BaseInterface";
 export interface ICustomer extends IBaseInterface {
     firstName: string;
     lastName: string;
-    customerAddress: CustomerAddress
+    customerAddress: ICustomerAddress
 }
 
-export interface CustomerAddress {
+export interface ICustomerAddress {
     id: number;
     addressLine: string;
     city: string;

@@ -7,6 +7,6 @@ export interface IInvoice extends IBaseInterface {
 }
 
 export interface ILineItem {
-    quantiry: number;
-    product?: IProduct
+    quantity: number;
+    product: IProduct
 }

@@ -1,5 +1,5 @@
 export interface IBaseInterface {
-    id: number;
+    id?: number;
     dateCreated: Date;
     dateUpdated?: Date;
 }

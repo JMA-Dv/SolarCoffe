@@ -10,7 +10,7 @@ export default class InvoiceService {
         let now = new Date();
         invoice.dateCreated = now;
         invoice.dateUpdated = now;
-        let result = await HTTP.post('/invoice', invoice);
+        let result = await HTTP.post('/order/invoice', invoice);
         return result.data;
     }
 }

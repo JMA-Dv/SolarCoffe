@@ -31,5 +31,23 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### Moment js
 ```
-npm i moment
+pnpm i moment
+```
+
+### jspdf
+```
+
+pnpm add jspdf
+```
+
+### html2canvas
+```
+npm add html2canvas
+
+https://github.com/parallax/jsPDF
+```
+
+### LineIcons
+```
+https://lineicons.com/icons/
 ```
