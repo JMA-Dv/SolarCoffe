@@ -7,5 +7,5 @@ export interface ISalesOrder extends IBaseInterface {
 
     customer: ICustomer;
     isPaid: boolean;
-    salesorderItems: ILineItem[];
+    salesOrderItems: ILineItem[];
 }

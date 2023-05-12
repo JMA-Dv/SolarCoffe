@@ -6,26 +6,30 @@
         <hr>
         <table id="sales-orders" class="table" v-if="orders.length">
             <thead>
-                <tr>Customer</tr>
                 <tr>
-                    OrderId
+
+                    <th>Customer</th>
+                    <th>
+                        OrderId
+                    </th>
+                    <th>Order Total</th>
+                    <th>Order Status</th>
+                    <th>Mark Complete</th>
                 </tr>
-                <tr>Order Total</tr>
-                <th>Order Status</th>
-                <th>Mark Complete</th>
+                <tr v-for="item in orders" :key="item.id">
+                    <td>{{ item.customer.id }}</td>
+                    <td>{{ item.id }}</td>
+                    <td>{{ getTotal(item) }}</td>
+                    <td :class="{ 'green': item.isPaid }">{{ getStatus(item.isPaid) }}</td>
+                    <td>
+                        <div v-if="!item.isPaid" class="lni lni-checkmark-circle green order-complete"
+                            @click="markAsComplete(item.id)">
+
+                        </div>
+                    </td>
+                </tr>
+
             </thead>
-            <tr v-for="item in orders" :key="item.id">
-                <td>{{ item.customer.id }}</td>
-                <td>{{ item.id }}</td>
-                <td>{{ getTotal(item) }}</td>
-                <td :class="{ green: item.isPaid }">{{ getStatus(item.isPaid) }}</td>
-                <td>
-                    <div v-if="!item.isPaid" class="lni-check-mark-circle order-complete " @click="markAsComplete(item.id)">
-
-                    </div>
-                </td>
-            </tr>
-
 
         </table>
     </div>
@@ -44,12 +48,13 @@ export default class Order extends Vue {
     orders: ISalesOrder[] = [];
 
     getTotal(order: ISalesOrder) {
-        return order.salesorderItems.reduce((a, b) => a + b["product"]["price"] * b["quantity"], 0);
+        return order.salesOrderItems.reduce((a, b) => a + b["product"]["price"] * b["quantity"], 0);
     }
 
     getStatus(isPaid: boolean): string {
-        return (isPaid) ? "Paid in full" : "Unpain";
+        return (isPaid) ? "Paid in full" : "Un paid";
     }
+
     async init() {
         this.orders = await orderService.GetOrders();
     }
@@ -64,4 +69,17 @@ export default class Order extends Vue {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+@import "@/scss/global.scss";
+
+.green {
+    font-weight: bold;
+    color: $solar-green;
+}
+
+.order-complete {
+    cursor: pointer;
+    text-align: center;
+
+}
+</style>
