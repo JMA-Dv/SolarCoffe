@@ -72,9 +72,8 @@ namespace SolarCoffe.Api.Controllers
                 {
                     QuantityOnHand = g.ToList(),
                     ProductId = key.Id
-                })
-                    .OrderBy(i => i.ProductId)
-                    .ToList();
+                }).OrderBy(i => i.ProductId)
+                  .ToList();
 
 
                 var model = new SnapshotResponse
@@ -92,8 +91,6 @@ namespace SolarCoffe.Api.Controllers
                 _logger.LogError(e.StackTrace   );
                 return BadRequest("Error retriving history");
             }
-            return 
-
         }
 
 

@@ -4,7 +4,7 @@
             Inventory Dashboard
         </h1>
         <hr>
-
+        <inventory-chart></inventory-chart>
         <div class="inventory-actions">
             <SolarBtn @click.native="showNewProductModal" id="addNewBtn">
                 Add new Item
@@ -64,12 +64,13 @@ import NewProductModal from '@/components/modals/NewProductModal.vue';
 import { IShipment } from '@/types/Shipment';
 import { InventoryService } from '@/services/InventoryService.';
 import { ProductService } from '@/services/ProductService';
+import InventoryChart from '@/components/charts/InventoryChart.vue';
 
 const productService = new ProductService();
 const inventoryService = new InventoryService();
 @Component({
     name: 'Inventory',
-    components: { SolarBtn, ShipmentModal, NewProductModal }
+    components: { SolarBtn, ShipmentModal, NewProductModal, InventoryChart }
 })
 
 export default class Inventory extends Vue {
@@ -80,17 +81,11 @@ export default class Inventory extends Vue {
 
     applyColor(current: number, target: number) {
         if (current <= 1) {
-            console.log("🚀 ~ file: Inventory.vue:81 ~ Inventory ~ applyColor ~ current:", current)
-
             return "red";
         }
-
         if (Math.abs(target - current) > 8) {
-            console.log("🚀 ~ file: Inventory.vue:87 ~ Inventory ~ applyColor ~ abs:")
-
             return "yellow";
         }
-
         return "green"
     }
 
@@ -131,6 +126,7 @@ export default class Inventory extends Vue {
     async init() {
 
         this.inventory = await inventoryService.GetInventory();
+        this.$store.dispatch("assignSnapshots");
     }
 }
 
