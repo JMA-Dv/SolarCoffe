@@ -1,55 +1,62 @@
 <template>
     <div class="inventory-container">
-        <h1 class="inventoryTitle">
-            Inventory Dashboard
-        </h1>
-        <hr>
-        <inventory-chart></inventory-chart>
-        <div class="inventory-actions">
-            <SolarBtn @click.native="showNewProductModal" id="addNewBtn">
-                Add new Item
-            </SolarBtn>
+        <div v-if="inventory">
+            <h1 class="inventoryTitle">
+                Inventory Dashboard
+            </h1>
+            <hr>
 
-            <SolarBtn @click.native="showShipmentModal" id="receiveShipmentBtn">
-                Receive shipment
-            </SolarBtn>
+            <inventory-chart></inventory-chart>
+            <div class="inventory-actions">
+                <SolarBtn @click.native="showNewProductModal" id="addNewBtn">
+                    Add new Item
+                </SolarBtn>
+
+                <SolarBtn @click.native="showShipmentModal" id="receiveShipmentBtn">
+                    Receive shipment
+                </SolarBtn>
+            </div>
+
+            <table id="inventoryTable" class="table">
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity On-hand</th>
+                    <th>Unit Price</th>
+                    <th>Taxeable</th>
+                    <th>Delete</th>
+                </tr>
+
+                <tr v-for="item in inventory" :key="item.id">
+                    <td>
+                        {{ item.product.name }}
+                    </td>
+                    <td :class="`${applyColor(item.quantityOnHand, item.idealQuantity)}`">
+                        {{ item.quantityOnHand }}
+                    </td>
+                    <td>{{ item.product.price | price }} </td>
+                    <td>
+
+                        <span v-if="item.product.isTaxable">Yes</span>
+                        <span v-else>No</span>
+
+                    </td>
+                    <td>
+                        <div class="lni lni-cross-circle product-archive" @click="archiveProduct(item.product.id)">
+
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+
+            <new-product-modal v-if="isNewProductVisible" @save:product="saveNewProduct" @close="closeModals" />
+            <shipment-modal v-if="isShipmentVisible" :inventory="inventory" @save:shipment="saveNewShipment"
+                @close="closeModals" />
+
         </div>
-
-        <table id="inventoryTable" class="table">
-            <tr>
-                <th>Item</th>
-                <th>Quantity On-hand</th>
-                <th>Unit Price</th>
-                <th>Taxeable</th>
-                <th>Delete</th>
-            </tr>
-
-            <tr v-for="item in inventory" :key="item.id">
-                <td>
-                    {{ item.product.name }}
-                </td>
-                <td :class="`${applyColor(item.quantityOnHand, item.idealQuantity)}`">
-                    {{ item.quantityOnHand }}
-                </td>
-                <td>{{ item.product.price | price }} </td>
-                <td>
-
-                    <span v-if="item.product.isTaxable">Yes</span>
-                    <span v-else>No</span>
-
-                </td>
-                <td>
-                    <div class="lni lni-cross-circle product-archive" @click="archiveProduct(item.product.id)">
-
-                    </div>
-                </td>
-            </tr>
-        </table>
-
-
-        <new-product-modal v-if="isNewProductVisible" @save:product="saveNewProduct" @close="closeModals" />
-        <shipment-modal v-if="isShipmentVisible" :inventory="inventory" @save:shipment="saveNewShipment"
-            @close="closeModals" />
+        <div v-else>
+            <SpinerDotLoader />
+        </div>
     </div>
 </template>
 
@@ -65,12 +72,13 @@ import { IShipment } from '@/types/Shipment';
 import { InventoryService } from '@/services/InventoryService.';
 import { ProductService } from '@/services/ProductService';
 import InventoryChart from '@/components/charts/InventoryChart.vue';
+import SpinerDotLoader from '@/components/loaders/SpinerDotLoader.vue';
 
 const productService = new ProductService();
 const inventoryService = new InventoryService();
 @Component({
     name: 'Inventory',
-    components: { SolarBtn, ShipmentModal, NewProductModal, InventoryChart }
+    components: { SolarBtn, ShipmentModal, NewProductModal, InventoryChart, SpinerDotLoader }
 })
 
 export default class Inventory extends Vue {

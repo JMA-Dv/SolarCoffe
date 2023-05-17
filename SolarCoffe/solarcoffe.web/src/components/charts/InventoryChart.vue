@@ -14,6 +14,7 @@ import Vue from 'vue';
 
 import { IInventoryTimeline } from '@/types/InventoryGraph';
 import { Sync, Get } from 'vuex-pathify';
+import moment from 'moment';
 Vue.component('apexchart', VueApexCharts)
 
 @Component({
@@ -41,7 +42,7 @@ export default class InventoryChart extends Vue {
                 curve: 'smooth'
             },
             xaxis: {
-                categories: this.snapshotTimeline?.timeline,
+                categories: this.snapshotTimeline?.timeline.map(item => moment(item).format('dd HHMMss')),
                 type: 'datetime'
             },
         }

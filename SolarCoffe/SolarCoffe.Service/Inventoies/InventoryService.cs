@@ -20,17 +20,28 @@ namespace SolarCoffe.Service.Inventoies
             _logger = logger;
         }
 
-        private void CreateSnapshot(ProductInventory inventory)
+        private void CreateSnapshot()
         {
-            var snapshot = new ProductInventorySnapshot
+
+            var inventory = 
+                _context
+                .ProductInventories
+                .Include(x => x.Product)
+                .ToList();
+
+            var currentDate = DateTime.UtcNow;
+            foreach (var item in inventory)
             {
-                SnapshotTime = DateTime.UtcNow,
-                Product = inventory.Product,
-                QuantityOnHand = inventory.QuantityOnHand
+                var snapshot = new ProductInventorySnapshot
+                {
+                    SnapshotTime = currentDate,
+                    Product = item.Product,
+                    QuantityOnHand = item.QuantityOnHand
 
-            };
+                };
 
-            _context.ProductInventorySnapshots.Add(snapshot);
+                _context.Add(snapshot);
+            }
         }
 
         public ProductInventory GetByProductId(int productId)
@@ -86,7 +97,7 @@ namespace SolarCoffe.Service.Inventoies
 
                 try
                 {
-                    CreateSnapshot(inventory);
+                    CreateSnapshot();
                 }
                 catch (Exception e)
                 {

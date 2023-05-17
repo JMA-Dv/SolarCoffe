@@ -21,6 +21,7 @@ const actions = {
         const inventoryService = new InventoryService();
 
         let response = await inventoryService.GetSnapshotHistory();
+
         let timeline: IInventoryTimeline = {
             productInventorySnapshots: response.productInventorySnapshots,
             timeline: response.timeline
