@@ -51,3 +51,17 @@ https://github.com/parallax/jsPDF
 ```
 https://lineicons.com/icons/
 ```
+
+### Apex charts
+```
+version -- 1.5.1
+
+npm install --save vue-apexcharts
+
+npm install --save vue-apexcharts
+
+https://apexcharts.com/docs/vue-charts/
+
+https://www.npmjs.com/package/vuex-pathify/v/1.5.1
+
+```

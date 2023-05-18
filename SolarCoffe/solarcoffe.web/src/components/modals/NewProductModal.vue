@@ -51,7 +51,6 @@ export default class NewProductModal extends Vue {
 
 
     close() {
-        console.log("🚀 ~ file: NewProductModal.vue:54 ~ NewProductModal ~ close ~ close:")
         this.$emit("close");
     }
     /**
