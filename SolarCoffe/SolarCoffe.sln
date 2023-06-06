@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.33214.272
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolarCoffe.Api", "SolarCoffe.Api\SolarCoffe.Api.csproj", "{FAEBF255-7210-47FE-8E11-5F7BB5864219}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SolarCoffe.Api", "SolarCoffe.Api\SolarCoffe.Api.csproj", "{FAEBF255-7210-47FE-8E11-5F7BB5864219}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolarCoffe.Data", "SolarCoffe.Data\SolarCoffe.Data.csproj", "{6DA0C1E7-CA32-44D0-8617-437362F0AE0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SolarCoffe.Data", "SolarCoffe.Data\SolarCoffe.Data.csproj", "{6DA0C1E7-CA32-44D0-8617-437362F0AE0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolarCoffe.Service", "SolarCoffe.Service\SolarCoffe.Service.csproj", "{88A70455-7866-48E7-BCFE-5F15DC59D09F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolarCoffe.Test", "SolarCoffe.Test\SolarCoffe.Test.csproj", "{A4E22866-E057-4959-87C2-DA0AE5F2E284}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SolarCoffe.Service", "SolarCoffe.Service\SolarCoffe.Service.csproj", "{88A70455-7866-48E7-BCFE-5F15DC59D09F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		{88A70455-7866-48E7-BCFE-5F15DC59D09F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88A70455-7866-48E7-BCFE-5F15DC59D09F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88A70455-7866-48E7-BCFE-5F15DC59D09F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A4E22866-E057-4959-87C2-DA0AE5F2E284}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A4E22866-E057-4959-87C2-DA0AE5F2E284}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A4E22866-E057-4959-87C2-DA0AE5F2E284}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A4E22866-E057-4959-87C2-DA0AE5F2E284}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
