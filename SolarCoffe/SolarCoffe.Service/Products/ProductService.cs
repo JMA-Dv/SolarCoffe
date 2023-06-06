@@ -25,6 +25,7 @@ namespace SolarCoffe.Service.Products
             try
             {
                 var product = _context.Products.Find(id);
+                
 
                 product.IsArchived = true;
                 product.DateUpdaetd = DateTime.UtcNow;
