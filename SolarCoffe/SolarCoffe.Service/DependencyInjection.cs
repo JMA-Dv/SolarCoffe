@@ -24,11 +24,7 @@ namespace SolarCoffe.Service
             services.AddSingleton<IJWT, JwtTokenGenerator>();
             services.AddSingleton<IAuthService, AuthenticationService>();
 
-            
-<<<<<<< HEAD
-            
-=======
->>>>>>> afb52e5a2f320b329e790e9a7f015b6171b9a5eb
+         
             return services;
         }
     }
