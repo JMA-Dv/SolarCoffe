@@ -1,11 +1,11 @@
-﻿namespace SolarCoffe.Data.Models.Auth
+﻿
+namespace SolarCoffe.Data.Responses
 {
-    public class User
+
+    public   class ApplicationUserResponse
     {
-        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
     }
 }

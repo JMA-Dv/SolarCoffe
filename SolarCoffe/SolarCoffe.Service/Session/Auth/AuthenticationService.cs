@@ -1,23 +1,22 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using SolarCoffe.Data.Models.Auth;
 using System;
 using System.Threading.Tasks;
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SolarCoffe.Service.Session.Auth
 {
     public class AuthenticationService : IAuthService
     {
 
-        
-        private readonly UserManager<IdentityUser> _userManager;
-        //private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IJWT _jwtGenerator;
 
-
-        public AuthenticationService(UserManager<IdentityUser> userManager)
+        public AuthenticationService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IJWT jwtGenerator)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
+            _jwtGenerator = jwtGenerator;
         }
 
         public async Task<AuthenticationResult> Login(string email, string password)
@@ -40,20 +39,28 @@ namespace SolarCoffe.Service.Session.Auth
                 throw new Exception("could not create account, user already created");
             }
 
-            var user = new IdentityUser
+            var user = new ApplicationUser
             {
                 Email = email,
                 UserName = firstName,
+                FirstName = firstName,
+                LastName = lastName,
+                BirthDay = DateTime.Now,
             };
 
 
 
             var result = await _userManager.CreateAsync(user, password);
 
+
             if (!result.Succeeded)
             {
                 throw new Exception("Could not create user");
             }
+
+            var token = _jwtGenerator.GenerateToken(user);
+
+
         }
 
 

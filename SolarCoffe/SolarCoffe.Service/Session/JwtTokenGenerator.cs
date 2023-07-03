@@ -17,10 +17,9 @@ namespace SolarCoffe.Service.Session
             _jwtSettings = jwtSettings.Value;
         }
 
-        public string GenerateToken(User user)
+        public string GenerateToken(ApplicationUser user)
         {
 
-            var tokenHandler = new JwtSecurityTokenHandler();
             var credentials = new SigningCredentials
                (new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret)),
                SecurityAlgorithms.HmacSha256);

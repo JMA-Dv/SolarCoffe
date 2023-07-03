@@ -4,6 +4,6 @@ namespace SolarCoffe.Service.Session
 {
     public interface IJWT
     {
-        string GenerateToken(User user);
+        string GenerateToken(ApplicationUser user);
     }
 }

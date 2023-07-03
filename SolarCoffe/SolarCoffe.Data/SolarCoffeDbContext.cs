@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SolarCoffe.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using SolarCoffe.Data.Models.Auth;
+using SolarCoffe.Data.Models.Config;
 
 namespace SolarCoffe.Data
 {
@@ -26,6 +25,11 @@ namespace SolarCoffe.Data
         public DbSet<SalesOrderItem> SalesOrderItems { get; set; }
 
 
-
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            new ApplicationUserConfig(builder.Entity<ApplicationUser>());
+            new ApplicationRoleConfig(builder.Entity<ApplicationRole>());
+        }
     }
 }

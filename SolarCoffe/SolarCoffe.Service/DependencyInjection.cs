@@ -6,6 +6,7 @@ using SolarCoffe.Service.Customers;
 using Microsoft.Extensions.Configuration;
 using SolarCoffe.Service.Session;
 using SolarCoffe.Service.Session.Auth;
+using AutoMapper;
 
 namespace SolarCoffe.Service
 {
@@ -22,8 +23,8 @@ namespace SolarCoffe.Service
             services.AddTransient<IInventoryService, InventoryService>();
 
             services.AddSingleton<IJWT, JwtTokenGenerator>();
-            services.AddSingleton<IAuthService, AuthenticationService>();
-
+            services.AddScoped<IAuthService, AuthenticationService>();
+            services.AddAutoMapper(typeof(DependencyInjection));
          
             return services;
         }

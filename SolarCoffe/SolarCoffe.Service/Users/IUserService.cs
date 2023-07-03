@@ -8,7 +8,7 @@ namespace SolarCoffe.Service.Users
 {
     public interface IUserService
     {
-        Task<User?> GetUserByEmail(string email);
-        Task Add(User user);
+        Task<ApplicationUser?> GetUserByEmail(string email);
+        Task Add(ApplicationUser user);
     }
 }
